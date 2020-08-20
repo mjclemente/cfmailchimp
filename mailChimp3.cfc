@@ -1,5 +1,6 @@
 <cfcomponent  extends="mailChimp2" displayname="MailChimp" hint="I use the Mail Chimp API" output="false">
 
+  <cfparam name="request.debug" default="false">
 
 <cffunction name="init" access="public" output="false">
 	<cfargument name="apiKey" type="string" required="true">
