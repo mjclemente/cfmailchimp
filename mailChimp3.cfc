@@ -4,7 +4,7 @@
 <cffunction name="init" access="public" output="false">
 	<cfargument name="apiKey" type="string" required="true">
 	<cfargument name="apiUrl" type="string" required="true" default="https://<dc>.api.mailchimp.com/<ver>/">
-	
+
 	<cfset this.ping = this.ping3>
 	<cfset this.campaigns = this.campaigns3>
 	<cfset this.campaignCreate = this.campaignCreate3>
@@ -60,8 +60,7 @@
 
 <!--- https://developer.mailchimp.com/documentation/mailchimp/reference/ping/ --->
 <cffunction name="ping3" access="public" output="false"
-	hint="Ping the MailChimp API - a simple method you can call that will return a constant value as long as everything is good"
->
+	hint="Ping the MailChimp API - a simple method you can call that will return a constant value as long as everything is good">
 	<cfset var out = this.apiRequest3(
 		api= "GET /ping" )>
 
@@ -70,7 +69,7 @@
 	<cfelse>
 		<cfset out.response.success = false>
 	</cfif>
-	
+
 	<cfreturn out>
 </cffunction>
 
@@ -82,8 +81,7 @@
 
 <!--- https://developer.mailchimp.com/documentation/mailchimp/reference/lists/members/#read-get_lists_list_id_members_subscriber_hasha671e18a0d --->
 <cffunction name="listMember3" access="public" output="false"
-	hint="Get all the information for a particular member of a list"
->
+	hint="Get all the information for a particular member of a list">
 	<cfargument name="list_id" type="string" required="true">
 	<cfargument name="subscriber_hash" type="string" required="true">
 	<cfargument name="fields" type="string" required="false">
@@ -94,7 +92,7 @@
 	<cfif find( "@", arguments.subscriber_hash )>
 		<cfset arguments.subscriber_hash = this.mcEmailHash( arguments.subscriber_hash )>
 	</cfif>
-	
+
 	<cfset out = this.apiRequest3(
 		api= "GET /lists/{list_id}/members/{subscriber_hash}"
 	,	argumentCollection= arguments
@@ -106,8 +104,7 @@
 
 <!--- https://developer.mailchimp.com/documentation/mailchimp/reference/lists/members/#read-get_lists_list_id_members_subscriber_hasha671e18a0d --->
 <cffunction name="listMembers3" access="public" output="false"
-	hint="Get all the information for a particular member of a list"
->
+	hint="Get all the information for a particular member of a list">
 	<cfargument name="list_id" type="string" required="true">
 	<cfargument name="fields" type="string" required="false">
 	<cfargument name="exclude_fields" type="string" required="false">
@@ -124,9 +121,9 @@
 	<cfargument name="interest_category_id" type="string" required="false">
 	<cfargument name="interest_ids" type="string" required="false">
 	<cfargument name="interest_match" type="string" required="false" hint="any, all, none">
-	
+
 	<cfset var out = "">
-	
+
 	<cfif structKeyExists( arguments, "since_timestamp_opt" ) AND isDate( arguments.since_timestamp_opt )>
 		<cfset arguments[ "since_timestamp_opt" ] = mcDateFormat( arguments.since_timestamp_opt )>
 	</cfif>
@@ -151,8 +148,7 @@
 
 <!--- https://developer.mailchimp.com/documentation/mailchimp/reference/lists/members/ --->
 <cffunction name="listMemberCreate3" access="public" output="false"
-	hint="Add a member to the list"
->
+	hint="Add a member to the list">
 	<cfargument name="list_id" type="string" required="true">
 	<cfargument name="email_address" type="string" required="false">
 	<cfargument name="email_type" type="string" required="false" hint="html or text">
@@ -166,9 +162,9 @@
 	<cfargument name="timestamp_signup" type="string" required="false">
 	<cfargument name="ip_opt" type="string" required="false">
 	<cfargument name="timestamp_opt" type="string" required="false">
-	
+
 	<cfset var out = "">
-	
+
 	<cfif structKeyExists( arguments, "timestamp_signup" ) AND isDate( arguments.timestamp_signup )>
 		<cfset arguments[ "timestamp_signup" ] = mcDateFormat( arguments.timestamp_signup )>
 	</cfif>
@@ -187,8 +183,7 @@
 
 <!--- https://developer.mailchimp.com/documentation/mailchimp/reference/lists/members/#%20 --->
 <cffunction name="listMemberUpsert3" access="public" output="false"
-	hint="Add or update a member to the list"
->
+	hint="Add or update a member to the list">
 	<cfargument name="list_id" type="string" required="true">
 	<cfargument name="email_address" type="string" required="true">
 	<cfargument name="email_type" type="string" required="false" hint="html or text">
@@ -202,9 +197,9 @@
 	<cfargument name="timestamp_signup" type="string" required="false">
 	<cfargument name="ip_opt" type="string" required="false">
 	<cfargument name="timestamp_opt" type="string" required="false">
-	
+
 	<cfset var out = "">
-	
+
 	<cfset arguments.subscriber_hash = this.mcEmailHash( arguments.email_address )>
 	<cfif structKeyExists( arguments, "timestamp_signup" ) AND isDate( arguments.timestamp_signup )>
 		<cfset arguments[ "timestamp_signup" ] = mcDateFormat( arguments.timestamp_signup )>
@@ -224,8 +219,7 @@
 
 <!--- https://developer.mailchimp.com/documentation/mailchimp/reference/lists/members/ --->
 <cffunction name="listMemberUpdate3" access="public" output="false"
-	hint="Add or update a member to the list"
->
+	hint="Add or update a member to the list">
 	<cfargument name="list_id" type="string" required="true">
 	<cfargument name="email_address" type="string" required="true">
 	<cfargument name="email_type" type="string" required="false" hint="html or text">
@@ -239,9 +233,9 @@
 	<cfargument name="timestamp_signup" type="string" required="false">
 	<cfargument name="ip_opt" type="string" required="false">
 	<cfargument name="timestamp_opt" type="string" required="false">
-	
+
 	<cfset var out = "">
-	
+
 	<cfset arguments.subscriber_hash = this.mcEmailHash( arguments.email_address )>
 	<cfif structKeyExists( arguments, "timestamp_signup" ) AND isDate( arguments.timestamp_signup )>
 		<cfset arguments[ "timestamp_signup" ] = mcDateFormat( arguments.timestamp_signup )>
@@ -260,8 +254,7 @@
 
 
 <cffunction name="listSubscribe3" access="public" output="false"
-	hint="Subscribe the provided email to a list"
->
+	hint="Subscribe the provided email to a list">
 	<cfargument name="list_id" type="string" required="true">
 	<cfargument name="email_address" type="string" required="false">
 	<cfargument name="email_type" type="string" required="false" hint="html or text">
@@ -274,17 +267,16 @@
 	<cfargument name="timestamp_signup" type="string" required="false">
 	<cfargument name="ip_opt" type="string" required="false">
 	<cfargument name="timestamp_opt" type="string" required="false">
-	
+
 	<cfreturn this.listMemberCreate3( status= "subscribed", argumentCollection= arguments )>
 </cffunction>
 
 
 <cffunction name="listUnsubscribe3" access="public" output="false"
-	hint="Subscribe the provided email to a list"
->
+	hint="Subscribe the provided email to a list">
 	<cfargument name="list_id" type="string" required="true">
 	<cfargument name="email_address" type="string" required="false">
-	
+
 	<cfset arguments.subscriber_hash = this.mcEmailHash( arguments.email_address )>
 	<cfset arguments.status = "unsubscribed">
 
@@ -304,8 +296,7 @@
 
 <!--- https://developer.mailchimp.com/documentation/mailchimp/reference/lists/segments/ --->
 <cffunction name="listSegments3" access="public" output="false"
-	hint="Get all the information for a particular member of a list"
->
+	hint="Get all the information for a particular member of a list">
 	<cfargument name="list_id" type="string" required="true">
 	<cfargument name="fields" type="string" required="false">
 	<cfargument name="exclude_fields" type="string" required="false">
@@ -317,9 +308,9 @@
 	<cfargument name="before_created_at" type="string" required="false">
 	<cfargument name="since_updated_at" type="string" required="false">
 	<cfargument name="before_updated_at" type="string" required="false">
-	
+
 	<cfset var out = "">
-	
+
 	<cfif structKeyExists( arguments, "since_created_at" ) AND isDate( arguments.since_created_at )>
 		<cfset arguments[ "since_created_at" ] = mcDateFormat( arguments.since_created_at )>
 	</cfif>
@@ -344,8 +335,7 @@
 
 <!--- https://developer.mailchimp.com/documentation/mailchimp/reference/lists/segments/ --->
 <cffunction name="listSegmentCreate3" access="public" output="false"
-	hint="Create a list segment"
->
+	hint="Create a list segment">
 	<cfargument name="list_id" type="string" required="true">
 	<cfargument name="name" type="string" required="true">
 	<cfargument name="static_segment" type="any" required="false">
@@ -367,15 +357,14 @@
 
 <!--- https://developer.mailchimp.com/documentation/mailchimp/reference/lists/segments/members/ --->
 <cffunction name="listSegmentMembers3" access="public" output="false"
-	hint="Get all the information for a particular member of a list"
->
+	hint="Get all the information for a particular member of a list">
 	<cfargument name="list_id" type="string" required="true">
 	<cfargument name="segment_id" type="string" required="true">
 	<cfargument name="fields" type="string" required="false">
 	<cfargument name="exclude_fields" type="string" required="false">
 	<cfargument name="count" type="numeric" default="10">
 	<cfargument name="offset" type="numeric" default="0">
-	
+
 	<cfset var out = this.apiRequest3(
 		api= "GET /lists/{list_id}/segments/{segment_id}/members"
 	,	argumentCollection= arguments
@@ -392,17 +381,16 @@
 
 <!--- https://developer.mailchimp.com/documentation/mailchimp/reference/lists/segments/ --->
 <cffunction name="listInterestCategories3" access="public" output="false"
-	hint="Get all the information for a particular member of a list"
->
+	hint="Get all the information for a particular member of a list">
 	<cfargument name="list_id" type="string" required="true">
 	<cfargument name="fields" type="string" required="false">
 	<cfargument name="exclude_fields" type="string" required="false">
 	<cfargument name="count" type="numeric" default="10">
 	<cfargument name="offset" type="numeric" default="0">
 	<cfargument name="type" type="string" required="false">
-	
+
 	<cfset var out = "">
-	
+
 	<cfset out = this.apiRequest3(
 		api= "GET /lists/{list_id}/interest-categories"
 	,	argumentCollection= arguments
@@ -414,8 +402,7 @@
 
 <!--- https://developer.mailchimp.com/documentation/mailchimp/reference/lists/segments/ --->
 <cffunction name="listInterestCategoryCreate3" access="public" output="false"
-	hint="Create a list segment"
->
+	hint="Create a list segment">
 	<cfargument name="list_id" type="string" required="true">
 	<cfargument name="title" type="string" required="true">
 	<cfargument name="display_order" type="numeric" required="true">
@@ -436,17 +423,16 @@
 
 <!--- https://developer.mailchimp.com/documentation/mailchimp/reference/lists/interest-categories/interests/ --->
 <cffunction name="listInterests3" access="public" output="false"
-	hint="Get all the information for a particular member of a list"
->
+	hint="Get all the information for a particular member of a list">
 	<cfargument name="list_id" type="string" required="true">
 	<cfargument name="interest_category_id" type="string" required="true">
 	<cfargument name="fields" type="string" required="false">
 	<cfargument name="exclude_fields" type="string" required="false">
 	<cfargument name="count" type="numeric" default="10">
 	<cfargument name="offset" type="numeric" default="0">
-	
+
 	<cfset var out = "">
-	
+
 	<cfset out = this.apiRequest3(
 		api= "GET /lists/{list_id}/interest-categories/{interest_category_id}/interests"
 	,	argumentCollection= arguments
@@ -458,8 +444,7 @@
 
 <!--- https://developer.mailchimp.com/documentation/mailchimp/reference/lists/segments/ --->
 <cffunction name="listInterestCreate3" access="public" output="false"
-	hint="Create a list segment"
->
+	hint="Create a list segment">
 	<cfargument name="list_id" type="string" required="true">
 	<cfargument name="interest_category_id" type="string" required="true">
 	<cfargument name="name" type="string" required="true">
@@ -481,8 +466,7 @@
 
 <!--- https://developer.mailchimp.com/documentation/mailchimp/reference/campaigns/#read-get_campaigns --->
 <cffunction name="campaigns3" access="public" output="false"
-	hint="Get the list of campaigns and their details matching the specified filters"
->
+	hint="Get the list of campaigns and their details matching the specified filters">
 	<cfargument name="fields" type="string" required="false">
 	<cfargument name="exclude_fields" type="string" required="false">
 	<cfargument name="count" type="numeric" default="10">
@@ -516,7 +500,7 @@
 	<cfset out = this.apiRequest3(
 		api= "GET /campaigns"
 	,	argumentCollection= arguments
-	)>	
+	)>
 
 	<cfif NOT structKeyExists( out.response, "campaigns" ) OR NOT isArray( out.response.campaigns )>
 		<cfset out.response.campaigns = []>
@@ -529,8 +513,7 @@
 
 
 <cffunction name="campaignCreate3" access="public" output="false"
-	hint="Create a new draft campaign to send. You can not have more than 32,000 campaigns in your account."
->
+	hint="Create a new draft campaign to send. You can not have more than 32,000 campaigns in your account.">
 	<cfargument name="type" type="string" required="true" hint="regular, plaintext, absplit, rss, auto">
 	<cfargument name="recipients" type="struct" required="true">
 	<cfargument name="settings" type="struct" required="true">
@@ -541,7 +524,7 @@
 	<cfargument name="url" type="string" default="">
 	<cfargument name="html" type="string" default="">
 	<cfargument name="plain_text" type="string" default="">
-	
+
 	<cfset var out = "">
 	<cfset var out2 = "">
 
@@ -575,12 +558,11 @@
 
 <!--- http://developer.mailchimp.com/documentation/mailchimp/reference/campaigns/#action-post_campaigns_campaign_id_actions_replicate --->
 <cffunction name="campaignCopy3" access="public" output="false"
-	hint="Replicate a campaign"
->
+	hint="Replicate a campaign">
 	<cfargument name="campaign_id" type="string" required="true">
-	
+
 	<cfset var out = "">
-	
+
 	<cfset out = this.apiRequest3(
 		api= "POST /campaigns/{campaign_id}/actions/replicate"
 	,	argumentCollection= arguments
@@ -593,12 +575,11 @@
 
 <!--- http://developer.mailchimp.com/documentation/mailchimp/reference/campaigns/# --->
 <cffunction name="campaignDelete3" access="public" output="false"
-	hint="Delete a campaign. Be careful!"
->
+	hint="Delete a campaign. Be careful!">
 	<cfargument name="campaign_id" type="string" required="true">
-	
+
 	<cfset var out = "">
-	
+
 	<cfset out = this.apiRequest3(
 		api= "DELETE /campaigns/{campaign_id}"
 	,	argumentCollection= arguments
@@ -611,14 +592,13 @@
 
 <!--- http://developer.mailchimp.com/documentation/mailchimp/reference/campaigns/# --->
 <cffunction name="campaignSendTest3" access="public" output="false"
-	hint="Send a test of this campaign to the provided email address"
->
+	hint="Send a test of this campaign to the provided email address">
 	<cfargument name="campaign_id" type="string" required="true">
 	<cfargument name="test_emails" type="any" required="true">
 	<cfargument name="send_type" type="string" default="html" hint="html or plain_text">
-	
+
 	<cfset var out = "">
-	
+
 	<cfif isSimpleValue( arguments.test_emails )>
 		<cfset arguments[ "test_emails" ] = listToArray( arguments.test_emails, ",; " )>
 	</cfif>
@@ -627,7 +607,7 @@
 		api= "POST /campaigns/{campaign_id}/actions/test"
 	,	argumentCollection= arguments
 	)>
-	
+
 	<!--- returns boolean --->
 	<cfreturn out>
 </cffunction>
@@ -635,13 +615,12 @@
 
 <!--- http://developer.mailchimp.com/documentation/mailchimp/reference/campaigns/# --->
 <cffunction name="campaignSchedule3" access="public" output="false"
-	hint="Schedule a campaign to be sent in the future"
->
+	hint="Schedule a campaign to be sent in the future">
 	<cfargument name="campaign_id" type="string" required="true">
 	<cfargument name="schedule_time" type="string" required="true">
 	<cfargument name="timeWarp" type="boolean" default="false">
 	<cfargument name="batch" type="string" default="" hint="{mins}|{count}">
-	
+
 	<cfset var out = "">
 
 	<cfset arguments[ "schedule_time" ] = mcDateFormat( arguments.schedule_time )>
@@ -651,12 +630,12 @@
 		,	"batch_count" = listGetAt( arguments.batch, "|", 2 )
 		}>
 	</cfif>
-	
+
 	<cfset out = this.apiRequest3(
 		api= "POST /campaigns/{campaign_id}/actions/schedule"
 	,	argumentCollection= arguments
 	)>
-	
+
 	<!--- returns boolean --->
 	<cfreturn out>
 </cffunction>
@@ -664,17 +643,16 @@
 
 <!--- http://developer.mailchimp.com/documentation/mailchimp/reference/campaigns/# --->
 <cffunction name="campaignUnschedule3" access="public" output="false"
-	hint="Schedule a campaign to be sent in the future"
->
+	hint="Schedule a campaign to be sent in the future">
 	<cfargument name="campaign_id" type="string" required="true">
-	
+
 	<cfset var out = "">
-	
+
 	<cfset out = this.apiRequest3(
 		api= "POST /campaigns/{campaign_id}/actions/unschedule"
 	,	argumentCollection= arguments
 	)>
-	
+
 	<!--- returns boolean --->
 	<cfreturn out>
 </cffunction>
@@ -682,12 +660,11 @@
 
 <!--- http://developer.mailchimp.com/documentation/mailchimp/reference/campaigns/# --->
 <cffunction name="campaignSend3" access="public" output="false"
-	hint="Send a given campaign immediately. For RSS campaigns, this will 'start' them."
->
+	hint="Send a given campaign immediately. For RSS campaigns, this will 'start' them.">
 	<cfargument name="campaign_id" type="string" required="true">
-	
+
 	<cfset var out = "">
-	
+
 	<cfset out = this.apiRequest3(
 		api= "POST /campaigns/{campaign_id}/actions/send"
 	,	argumentCollection= arguments
@@ -700,17 +677,16 @@
 
 <!--- http://developer.mailchimp.com/documentation/mailchimp/reference/campaigns/# --->
 <cffunction name="campaignPause3" access="public" output="false"
-	hint="Pause an AutoResponder orRSS campaign from sending"
->
+	hint="Pause an AutoResponder orRSS campaign from sending">
 	<cfargument name="campaign_id" type="string" required="true">
-	
+
 	<cfset var out = "">
-	
+
 	<cfset out = this.apiRequest3(
 		api= "POST /campaigns/{campaign_id}/actions/pause"
 	,	argumentCollection= arguments
 	)>
-	
+
 	<!--- returns boolean --->
 	<cfreturn out>
 </cffunction>
@@ -718,17 +694,16 @@
 
 <!--- http://developer.mailchimp.com/documentation/mailchimp/reference/campaigns/# --->
 <cffunction name="campaignResume3" access="public" output="false"
-	hint="Resume sending an AutoResponder or RSS campaign"
->
+	hint="Resume sending an AutoResponder or RSS campaign">
 	<cfargument name="campaign_id" type="string" required="true">
-	
+
 	<cfset var out = "">
-	
+
 	<cfset out = this.apiRequest3(
 		api= "POST /campaigns/{campaign_id}/actions/resume"
 	,	argumentCollection= arguments
 	)>
-	
+
 	<!--- returns boolean --->
 	<cfreturn out>
 </cffunction>
@@ -736,17 +711,16 @@
 
 <!--- http://developer.mailchimp.com/documentation/mailchimp/reference/campaigns/# --->
 <cffunction name="campaignCancelSend3" access="public" output="false"
-	hint="Cancel a Regular or Plain-Text Campaign after you send, before all of your recipients receive it. This feature is included with MailChimp Pro."
->
+	hint="Cancel a Regular or Plain-Text Campaign after you send, before all of your recipients receive it. This feature is included with MailChimp Pro.">
 	<cfargument name="campaign_id" type="string" required="true">
-	
+
 	<cfset var out = "">
-	
+
 	<cfset out = this.apiRequest3(
 		api= "POST /campaigns/{campaign_id}/actions/cancel-send"
 	,	argumentCollection= arguments
 	)>
-	
+
 	<!--- returns boolean --->
 	<cfreturn out>
 </cffunction>
@@ -754,12 +728,11 @@
 
 <!--- http://developer.mailchimp.com/documentation/mailchimp/reference/campaigns/send-checklist/ --->
 <cffunction name="campaignSendChecklist3" access="public" output="false"
-	hint="Review the send checklist for a campaign, and resolve any issues before sending."
->
+	hint="Review the send checklist for a campaign, and resolve any issues before sending.">
 	<cfargument name="campaign_id" type="string" required="true">
-	
+
 	<cfset var out = "">
-	
+
 	<cfset out = this.apiRequest3(
 		api= "POST /campaigns/{campaign_id}/send-checklist"
 	,	argumentCollection= arguments
@@ -778,8 +751,7 @@
 
 <!--- http://developer.mailchimp.com/documentation/mailchimp/reference/lists/abuse-reports/#read-get_lists_list_id_abuse_reports --->
 <cffunction name="listAbuseReports3" access="public" output="false"
-	hint="Get all email addresses that complained about a given list"
->
+	hint="Get all email addresses that complained about a given list">
 	<cfargument name="list_id" type="string" required="true">
 	<cfargument name="fields" type="string" required="false">
 	<cfargument name="exclude_fields" type="string" required="false">
@@ -802,8 +774,7 @@
 
 <!--- http://developer.mailchimp.com/documentation/mailchimp/reference/ecommerce/orders/#create-post_ecommerce_stores_store_id_orders --->
 <cffunction name="ecommOrderAdd3" access="public" output="false"
-	hint="Import Ecommerce Order Information to be used for Segmentation"
->
+	hint="Import Ecommerce Order Information to be used for Segmentation">
 	<cfargument name="store_id" type="string" required="true">
 	<cfargument name="id" type="string" required="true">
 	<cfargument name="customer_id" type="string" required="false">
@@ -826,11 +797,11 @@
 	<cfargument name="shipping_address" type="struct" required="false" hint="name, address1, address2, city, province, province_code, postal_code, country, country_code, longitude, latitude, phone, company">
 	<cfargument name="billing_address" type="struct" required="false" hint="name, address1, address2, city, province, province_code, postal_code, country, country_code, longitude, latitude, phone, company">
 	<cfargument name="promos" type="array" required="false">
-	
+
 	<cfset var out = "">
-	
+
 	<cfset arguments[ "order_total" ] = mcDollarFormat( arguments.order_total )>
-	
+
 	<cfif structKeyExists( arguments, "customer_id" )>
 		<cfset arguments[ "customer" ] = {
 			"id" = arguments.customer_id
@@ -870,11 +841,10 @@
 
 <!--- http://developer.mailchimp.com/documentation/mailchimp/reference/ecommerce/orders/#edit-patch_ecommerce_stores_store_id_orders_order_id --->
 <cffunction name="ecommOrderCancel3" access="public" output="false"
-	hint=""
->
+	hint="">
 	<cfargument name="store_id" type="string" required="true">
 	<cfargument name="order_id" type="string" required="true">
-	
+
 	<cfset var out = "">
 
 	<cfset arguments[ "financial_status" ] = "cancelled">
@@ -883,18 +853,17 @@
 		api= "PATCH /ecommerce/stores/{store_id}/orders/{order_id}"
 	,	argumentCollection= arguments
 	)>
-	
+
 	<cfreturn out>
 </cffunction>
 
 
 <!--- http://developer.mailchimp.com/documentation/mailchimp/reference/ecommerce/orders/#edit-patch_ecommerce_stores_store_id_orders_order_id --->
 <cffunction name="ecommOrderShip3" access="public" output="false"
-	hint=""
->
+	hint="">
 	<cfargument name="store_id" type="string" required="true">
 	<cfargument name="order_id" type="string" required="true">
-	
+
 	<cfset var out = "">
 
 	<cfset arguments[ "fulfillment_status" ] = "shipped">
@@ -903,31 +872,29 @@
 		api= "PATCH /ecommerce/stores/{store_id}/orders/{order_id}"
 	,	argumentCollection= arguments
 	)>
-	
+
 	<cfreturn out>
 </cffunction>
 
 
 <!--- http://developer.mailchimp.com/documentation/mailchimp/reference/ecommerce/orders/#delete-delete_ecommerce_stores_store_id_orders_order_id --->
 <cffunction name="ecommOrderDelete3" access="public" output="false"
-	hint=""
->
+	hint="">
 	<cfargument name="store_id" type="string" required="true">
 	<cfargument name="order_id" type="string" required="true">
-	
+
 	<cfset var out = this.apiRequest3(
 		api= "DELETE /ecommerce/stores/{store_id}/orders/{order_id}"
 	,	argumentCollection= arguments
 	)>
-	
+
 	<cfreturn out>
 </cffunction>
 
 
 <!--- http://developer.mailchimp.com/documentation/mailchimp/reference/ecommerce/orders/#read-get_ecommerce_orders --->
 <cffunction name="ecommOrders3" access="public" output="false"
-	hint=""
->
+	hint="">
 	<cfargument name="fields" type="string" required="false">
 	<cfargument name="exclude_fields" type="string" required="false">
 	<cfargument name="count" type="numeric" default="10">
@@ -936,20 +903,19 @@
 	<cfargument name="outreach_id" type="string" required="false">
 	<cfargument name="customer_id" type="string" required="false">
 	<cfargument name="has_outreach" type="string" required="false">
-	
+
 	<cfset var out = this.apiRequest3(
 		api= "GET /ecommerce/orders"
 	,	argumentCollection= arguments
 	)>
-	
+
 	<cfreturn out>
 </cffunction>
 
 
 <!--- http://developer.mailchimp.com/documentation/mailchimp/reference/ecommerce/orders/#read-get_ecommerce_stores_store_id_orders --->
 <cffunction name="ecommStoreOrders3" access="public" output="false"
-	hint=""
->
+	hint="">
 	<cfargument name="store_id" type="string" required="true">
 	<cfargument name="fields" type="string" required="false">
 	<cfargument name="exclude_fields" type="string" required="false">
@@ -959,30 +925,29 @@
 	<cfargument name="has_outreach" type="string" required="false">
 	<cfargument name="campaign_id" type="string" required="false">
 	<cfargument name="outreach_id" type="string" required="false">
-	
+
 	<cfset var out = this.apiRequest3(
 		api= "GET /ecommerce/stores/{store_id}/orders"
 	,	argumentCollection= arguments
 	)>
-	
+
 	<cfreturn out>
 </cffunction>
 
 
 <!--- http://developer.mailchimp.com/documentation/mailchimp/reference/ecommerce/orders/#read-get_ecommerce_stores_store_id_orders --->
 <cffunction name="ecommOrder3" access="public" output="false"
-	hint=""
->
+	hint="">
 	<cfargument name="store_id" type="string" required="true">
 	<cfargument name="order_id" type="string" required="true">
 	<cfargument name="fields" type="string" required="false">
 	<cfargument name="exclude_fields" type="string" required="false">
-	
+
 	<cfset var out = this.apiRequest3(
 		api= "GET /ecommerce/stores/{store_id}/orders/{order_id}"
 	,	argumentCollection= arguments
 	)>
-	
+
 	<cfreturn out>
 </cffunction>
 
@@ -994,8 +959,7 @@
 
 <!--- http://developer.mailchimp.com/documentation/mailchimp/reference/ecommerce/stores/customers/#create-post_ecommerce_stores_store_id_customers --->
 <cffunction name="customerAdd3" access="public" output="false"
-	hint=""
->
+	hint="">
 	<cfargument name="store_id" type="string" required="true">
 	<cfargument name="customer_id" type="string" required="true">
 	<cfargument name="email_address" type="string" required="true">
@@ -1013,15 +977,14 @@
 		api= "POST /ecommerce/stores/{store_id}/customers"
 	,	argumentCollection= arguments
 	)>
-	
+
 	<cfreturn out>
 </cffunction>
 
 
 <!--- http://developer.mailchimp.com/documentation/mailchimp/reference/ecommerce/stores/customers/#edit-put_ecommerce_stores_store_id_customers_customer_id --->
 <cffunction name="customerUpsert3" access="public" output="false"
-	hint=""
->
+	hint="">
 	<cfargument name="store_id" type="string" required="true">
 	<cfargument name="customer_id" type="string" required="true">
 	<cfargument name="email_address" type="string" required="true">
@@ -1039,15 +1002,14 @@
 		api= "PUT /ecommerce/stores/{store_id}/customers/{customer_id}"
 	,	argumentCollection= arguments
 	)>
-	
+
 	<cfreturn out>
 </cffunction>
 
 
 <!--- http://developer.mailchimp.com/documentation/mailchimp/reference/ecommerce/stores/customers/#edit-put_ecommerce_stores_store_id_customers_customer_id --->
 <cffunction name="customerEdit3" access="public" output="false"
-	hint=""
->
+	hint="">
 	<cfargument name="store_id" type="string" required="true">
 	<cfargument name="customer_id" type="string" required="true">
 	<cfargument name="opt_in_status" type="boolean" required="true">
@@ -1065,61 +1027,58 @@
 		api= "PATCH /ecommerce/stores/{store_id}/customers/{customer_id}"
 	,	argumentCollection= arguments
 	)>
-	
+
 	<cfreturn out>
 </cffunction>
 
 
 <!--- http://developer.mailchimp.com/documentation/mailchimp/reference/ecommerce/stores/customers/#delete-delete_ecommerce_stores_store_id_customers_customer_id --->
 <cffunction name="customerDelete3" access="public" output="false"
-	hint=""
->
+	hint="">
 	<cfargument name="store_id" type="string" required="true">
 	<cfargument name="customer_id" type="string" required="true">
-	
+
 	<cfset var out = this.apiRequest3(
 		api= "DELETE /ecommerce/stores/{store_id}/customers/{customer_id}"
 	,	argumentCollection= arguments
 	)>
-	
+
 	<cfreturn out>
 </cffunction>
 
 
 <!--- http://developer.mailchimp.com/documentation/mailchimp/reference/ecommerce/stores/customers/#read-get_ecommerce_stores_store_id_customers_customer_id --->
 <cffunction name="customer3" access="public" output="false"
-	hint=""
->
+	hint="">
 	<cfargument name="store_id" type="string" required="true">
 	<cfargument name="customer_id" type="string" required="true">
 	<cfargument name="fields" type="string" required="false">
 	<cfargument name="exclude_fields" type="string" required="false">
-	
+
 	<cfset var out = this.apiRequest3(
 		api= "GET /ecommerce/stores/{store_id}/customers/{customer_id}"
 	,	argumentCollection= arguments
 	)>
-	
+
 	<cfreturn out>
 </cffunction>
 
 
 <!--- http://developer.mailchimp.com/documentation/mailchimp/reference/ecommerce/stores/customers/#read-get_ecommerce_stores_store_id_customers --->
 <cffunction name="customers3" access="public" output="false"
-	hint=""
->
+	hint="">
 	<cfargument name="store_id" type="string" required="true">
 	<cfargument name="email_address" type="string" required="false">
 	<cfargument name="fields" type="string" required="false">
 	<cfargument name="exclude_fields" type="string" required="false">
 	<cfargument name="count" type="numeric" default="10">
 	<cfargument name="offset" type="numeric" default="0">
-	
+
 	<cfset var out = this.apiRequest3(
 		api= "GET /ecommerce/stores/{store_id}/customers"
 	,	argumentCollection= arguments
 	)>
-	
+
 	<cfreturn out>
 </cffunction>
 
@@ -1131,8 +1090,7 @@
 
 <!--- http://developer.mailchimp.com/documentation/mailchimp/reference/ecommerce/stores/products/#create-post_ecommerce_stores_store_id_products --->
 <cffunction name="productAdd3" access="public" output="false"
-	hint=""
->
+	hint="">
 	<cfargument name="store_id" type="string" required="true">
 	<cfargument name="id" type="string" required="true">
 	<cfargument name="title" type="string" required="true">
@@ -1150,15 +1108,14 @@
 		api= "POST /ecommerce/stores/{store_id}/products"
 	,	argumentCollection= arguments
 	)>
-	
+
 	<cfreturn out>
 </cffunction>
 
 
 <!--- http://developer.mailchimp.com/documentation/mailchimp/reference/ecommerce/stores/products/#edit-patch_ecommerce_stores_store_id_products_product_id --->
 <cffunction name="productEdit3" access="public" output="false"
-	hint=""
->
+	hint="">
 	<cfargument name="store_id" type="string" required="true">
 	<cfargument name="product_id" type="string" required="true">
 	<cfargument name="title" type="string" required="true">
@@ -1176,60 +1133,57 @@
 		api= "PATCH /ecommerce/stores/{store_id}/products/{product_id}"
 	,	argumentCollection= arguments
 	)>
-	
+
 	<cfreturn out>
 </cffunction>
 
 
 <!--- http://developer.mailchimp.com/documentation/mailchimp/reference/ecommerce/stores/products/#delete-delete_ecommerce_stores_store_id_products_product_id --->
 <cffunction name="productDelete3" access="public" output="false"
-	hint=""
->
+	hint="">
 	<cfargument name="store_id" type="string" required="true">
 	<cfargument name="product_id" type="string" required="true">
-	
+
 	<cfset var out = this.apiRequest3(
 		api= "DELETE /ecommerce/stores/{store_id}/products/{product_id}"
 	,	argumentCollection= arguments
 	)>
-	
+
 	<cfreturn out>
 </cffunction>
 
 
 <!--- http://developer.mailchimp.com/documentation/mailchimp/reference/ecommerce/stores/products/#read-get_ecommerce_stores_store_id_products --->
 <cffunction name="product3" access="public" output="false"
-	hint=""
->
+	hint="">
 	<cfargument name="store_id" type="string" required="true">
 	<cfargument name="product_id" type="string" required="true">
 	<cfargument name="fields" type="string" required="false">
 	<cfargument name="exclude_fields" type="string" required="false">
-	
+
 	<cfset var out = this.apiRequest3(
 		api= "GET /ecommerce/stores/{store_id}/products/{product_id}"
 	,	argumentCollection= arguments
 	)>
-	
+
 	<cfreturn out>
 </cffunction>
 
 
 <!--- http://developer.mailchimp.com/documentation/mailchimp/reference/ecommerce/stores/products/#read-get_ecommerce_stores_store_id_products --->
 <cffunction name="products3" access="public" output="false"
-	hint=""
->
+	hint="">
 	<cfargument name="store_id" type="string" required="true">
 	<cfargument name="fields" type="string" required="false">
 	<cfargument name="exclude_fields" type="string" required="false">
 	<cfargument name="count" type="numeric" default="10">
 	<cfargument name="offset" type="numeric" default="0">
-	
+
 	<cfset var out = this.apiRequest3(
 		api= "GET /ecommerce/stores/{store_id}/products"
 	,	argumentCollection= arguments
 	)>
-	
+
 	<cfreturn out>
 </cffunction>
 
@@ -1241,45 +1195,42 @@
 
 <!--- http://developer.mailchimp.com/documentation/mailchimp/reference/ecommerce/stores/#read-get_ecommerce_stores --->
 <cffunction name="ecommStores3" access="public" output="false"
-	hint=""
->
+	hint="">
 	<cfargument name="fields" type="string" required="false">
 	<cfargument name="exclude_fields" type="string" required="false">
 	<cfargument name="count" type="numeric" default="10">
 	<cfargument name="offset" type="numeric" default="0">
-	
+
 	<cfset var out = this.apiRequest3(
 		api= "GET /ecommerce/stores"
 	,	argumentCollection= arguments
 	)>
-	
+
 	<cfreturn out>
 </cffunction>
 
 
 <!--- http://developer.mailchimp.com/documentation/mailchimp/reference/ecommerce/stores/#read-get_ecommerce_stores --->
 <cffunction name="ecommStore3" access="public" output="false"
-	hint=""
->
+	hint="">
 	<cfargument name="store_id" type="string" required="true">
 	<cfargument name="fields" type="string" required="false">
 	<cfargument name="exclude_fields" type="string" required="false">
 	<cfargument name="count" type="numeric" default="10">
 	<cfargument name="offset" type="numeric" default="0">
-	
+
 	<cfset var out = this.apiRequest3(
 		api= "GET /ecommerce/stores/{store_id}"
 	,	argumentCollection= arguments
 	)>
-	
+
 	<cfreturn out>
 </cffunction>
 
 
 <!--- http://developer.mailchimp.com/documentation/mailchimp/reference/ecommerce/stores/#read-get_ecommerce_stores --->
 <cffunction name="ecommStoreAdd3" access="public" output="false"
-	hint=""
->
+	hint="">
 	<cfargument name="id" type="string" required="true">
 	<cfargument name="list_id" type="string" required="true">
 	<cfargument name="name" type="string" required="true">
@@ -1293,20 +1244,19 @@
 	<cfargument name="timezone" type="string" required="false">
 	<cfargument name="phone" type="string" required="false">
 	<cfargument name="address" type="struct" required="false" hint="address1, address2, city, province, province_code, postal_code, country, country_code, longitude, latitude">
-	
+
 	<cfset var out = this.apiRequest3(
 		api= "POST /ecommerce/stores"
 	,	argumentCollection= arguments
 	)>
-	
+
 	<cfreturn out>
 </cffunction>
 
 
 <!--- http://developer.mailchimp.com/documentation/mailchimp/reference/ecommerce/stores/#read-get_ecommerce_stores --->
 <cffunction name="ecommStoreEdit3" access="public" output="false"
-	hint=""
->
+	hint="">
 	<cfargument name="store_id" type="string" required="true">
 	<cfargument name="name" type="string" required="true">
 	<cfargument name="platform" type="string" required="false">
@@ -1319,37 +1269,35 @@
 	<cfargument name="timezone" type="string" required="false">
 	<cfargument name="phone" type="string" required="false">
 	<cfargument name="address" type="struct" required="false" hint="address1, address2, city, province, province_code, postal_code, country, country_code, longitude, latitude">
-	
+
 	<cfset var out = this.apiRequest3(
 		api= "PATCH /ecommerce/stores/{store_id}"
 	,	argumentCollection= arguments
 	)>
-	
+
 	<cfreturn out>
 </cffunction>
 
 
 <!--- http://developer.mailchimp.com/documentation/mailchimp/reference/ecommerce/stores/#delete-delete_ecommerce_stores_store_id --->
 <cffunction name="ecommStoreDelete3" access="public" output="false"
-	hint=""
->
+	hint="">
 	<cfargument name="store_id" type="string" required="true">
-	
+
 	<cfset var out = this.apiRequest3(
 		api= "DELETE /ecommerce/stores/{store_id}"
 	,	argumentCollection= arguments
 	)>
-	
+
 	<cfreturn out>
 </cffunction>
 
 
 <!--- http://developer.mailchimp.com/documentation/mailchimp/reference/ecommerce/stores/#edit-patch_ecommerce_stores_store_id --->
 <cffunction name="ecommStoreSyncStart3" access="public" output="false"
-	hint=""
->
+	hint="">
 	<cfargument name="store_id" type="string" required="true">
-	
+
 	<cfset var out = "">
 
 	<cfset arguments.is_syncing = true>
@@ -1358,17 +1306,16 @@
 		api= "PATCH /ecommerce/stores/{store_id}"
 	,	argumentCollection= arguments
 	)>
-	
+
 	<cfreturn out>
 </cffunction>
 
 
 <!--- http://developer.mailchimp.com/documentation/mailchimp/reference/ecommerce/stores/#edit-patch_ecommerce_stores_store_id --->
 <cffunction name="ecommStoreSyncEnd3" access="public" output="false"
-	hint=""
->
+	hint="">
 	<cfargument name="store_id" type="string" required="true">
-	
+
 	<cfset var out = "">
 
 	<cfset arguments.is_syncing = false>
@@ -1377,7 +1324,7 @@
 		api= "PATCH /ecommerce/stores/{store_id}"
 	,	argumentCollection= arguments
 	)>
-	
+
 	<cfreturn out>
 </cffunction>
 
@@ -1388,12 +1335,12 @@
 	<cfargument name="exclude_fields" type="string" required="false">
 	<cfargument name="count" type="numeric" default="10">
 	<cfargument name="offset" type="numeric" default="0">
-	
+
 	<cfset var out = this.apiRequest3(
 		api= "GET /batches"
 	,	argumentCollection= arguments
 	)>
-	
+
 	<cfreturn out>
 </cffunction>
 
@@ -1402,7 +1349,7 @@
 <cffunction name="batchesClear3" access="public" output="false">
 	<cfargument name="count" type="numeric" default="10">
 	<cfargument name="error_limit" type="numeric" default="0">
-	
+
 	<cfset var out = this.batches3( count= arguments.count )>
 	<cfset out.deletes = []>
 	<cfset out.total_operations = 0>
@@ -1426,7 +1373,7 @@
 			</cfif>
 		</cfloop>
 	</cfif>
-	
+
 	<cfreturn out>
 </cffunction>
 
@@ -1435,7 +1382,7 @@
 <cffunction name="batch3" access="public" output="false">
 	<cfargument name="batch_id" type="string" required="true">
 	<cfargument name="download" type="boolean" default="false">
-	
+
 	<cfset var out = this.apiRequest3(
 		api= "GET /batches/{batch_id}"
 	,	batch_id= arguments.batch_id
@@ -1444,7 +1391,7 @@
 	<cfif arguments.download AND out.success AND structKeyExists( out.response, "response_body_url" ) AND len( out.response.response_body_url )>
 		<cfhttp result="out.download" method="GET" url="out.response.response_body_url" charset="UTF-8" getAsBinary="true" timeOut="#this.httpTimeOut#" throwOnError="false"></cfhttp>
 	</cfif>
-	
+
 	<cfreturn out>
 </cffunction>
 
@@ -1453,12 +1400,12 @@
 <!--- http://developer.mailchimp.com/documentation/mailchimp/reference/batches/#delete-delete_batches_batch_id --->
 <cffunction name="batchDelete3" access="public" output="false">
 	<cfargument name="batch_id" type="string" required="true">
-	
+
 	<cfset var out = this.apiRequest3(
 		api= "DELETE /batches/{batch_id}"
 	,	argumentCollection= arguments
 	)>
-	
+
 	<cfreturn out>
 </cffunction>
 
@@ -1466,7 +1413,7 @@
 
 <cffunction name="apiRequest3" output="false" returnType="struct">
 	<cfargument name="api" type="string" required="true">
-	
+
 	<cfset var http = {}>
 	<cfset var item = "">
 	<cfset var out = {
@@ -1481,7 +1428,7 @@
 	,	username = ""
 	,	password = ""
 	}>
-	
+
 	<cfset out.requestUrl &= replace( listRest( out.args.api, " " ), "/", "", "one" )>
 	<cfset structDelete( out.args, "api" )>
 
@@ -1501,7 +1448,7 @@
 	<cfelseif NOT structIsEmpty( out.args )>
 		<cfset out.body = serializeJSON( out.args, false, false )>
 	</cfif>
-	
+
 	<cfset this.debugLog( "APIv3: #uCase( out.verb )#: #out.requestUrl#" )>
 	<cfif structKeyExists( out, "body" )>
 		<cfset this.debugLog( out.body )>
@@ -1522,15 +1469,15 @@
 			</cfif>
 		</cfhttp>
 	</cftimer>
-	
+
 	<!--- <cfset this.debugLog( http )> --->
-	
+
 	<cfset out.response = toString( http.fileContent )>
-	
+
 	<cfif request.debug AND request.dump>
 		<cfset this.debugLog( out.response )>
 	</cfif>
-	
+
 	<!--- RESPONSE CODE ERRORS --->
 	<cfif NOT structKeyExists( http, "responseHeader" ) OR NOT structKeyExists( http.responseHeader, "Status_Code" ) OR http.responseHeader.Status_Code IS "">
 		<cfset out.statusCode = 500>
@@ -1538,7 +1485,7 @@
 		<cfset out.statusCode = http.responseHeader.Status_Code>
 	</cfif>
 	<cfset this.debugLog( out.statusCode )>
-	
+
 	<cfif left( out.statusCode, 1 ) IS 4 OR left( out.statusCode, 1 ) IS 5>
 		<cfset out.success = false>
 		<cfset out.error = "status code error: #out.statusCode#">
@@ -1547,7 +1494,7 @@
 	<cfelseif left( out.statusCode, 1 ) IS 2>
 		<cfset out.success = true>
 	</cfif>
-	
+
 	<!--- parse response --->
 	<cftry>
 		<cfset out.response = deserializeJSON( out.response )>
@@ -1562,11 +1509,11 @@
 			<cfset out.error= "JSON Error: " & (cfcatch.message?:"No catch message") & " " & (cfcatch.detail?:"No catch detail")>
 		</cfcatch>
 	</cftry>
-	
+
 	<cfif len( out.error )>
 		<cfset out.success = false>
 	</cfif>
-	
+
 	<cfreturn out>
 </cffunction>
 
@@ -1605,12 +1552,12 @@
 	</cfloop>
 
 	<cfset this.debugLog( "APIv3 Add Batch: #uCase( out.method )#: #out.path#" )>
-	
+
 	<cfif out.method IS NOT "GET">
 		<cfset out[ "body" ] = serializeJSON( arguments, false, false )>
 		<cfset this.debugLog( out.body )>
 	</cfif>
-	
+
 	<cfif request.debug AND request.dump>
 		<cfset this.debugLog( out )>
 	</cfif>
@@ -1620,10 +1567,10 @@
 	<cfreturn b>
 </cffunction>
 
-	
+
 <cffunction name="apiBatchRequest3" output="false" returnType="struct">
 	<cfargument name="batch" type="array" required="true">
-	
+
 	<cfset var http = {}>
 	<cfset var item = "">
 	<cfset var out = {
@@ -1638,11 +1585,11 @@
 	,	username = ""
 	,	password = ""
 	}>
-	
+
 	<cfset out.requestUrl &= "batches">
 
 	<cfset out.body = serializeJSON( { "operations"= out.batch }, false, false )>
-	
+
 	<cfset this.debugLog( "APIv3: BATCH POST: #out.requestUrl#" )>
 	<cfif request.debug AND request.dump>
 		<cfset this.debugLog( out )>
@@ -1655,15 +1602,15 @@
 			<cfhttpparam type="body" value="#out.body#">
 		</cfhttp>
 	</cftimer>
-	
+
 	<!--- <cfset this.debugLog( http )> --->
-	
+
 	<cfset out.response = toString( http.fileContent )>
-	
+
 	<cfif request.debug>
 		<cfset this.debugLog( out.response )>
 	</cfif>
-	
+
 	<!--- RESPONSE CODE ERRORS --->
 	<cfif NOT structKeyExists( http, "responseHeader" ) OR NOT structKeyExists( http.responseHeader, "Status_Code" ) OR http.responseHeader.Status_Code IS "">
 		<cfset out.statusCode = 500>
@@ -1671,7 +1618,7 @@
 		<cfset out.statusCode = http.responseHeader.Status_Code>
 	</cfif>
 	<cfset this.debugLog( out.statusCode )>
-	
+
 	<cfif left( out.statusCode, 1 ) IS 4 OR left( out.statusCode, 1 ) IS 5>
 		<cfset out.success = false>
 		<cfset out.error = "status code error: #out.statusCode#">
@@ -1680,7 +1627,7 @@
 	<cfelseif left( out.statusCode, 1 ) IS 2>
 		<cfset out.success = true>
 	</cfif>
-	
+
 	<!--- parse response --->
 	<cftry>
 		<cfset out.response = deserializeJSON( out.response )>
@@ -1695,11 +1642,11 @@
 			<cfset out.error= "JSON Error: " & (cfcatch.message?:"No catch message") & " " & (cfcatch.detail?:"No catch detail")>
 		</cfcatch>
 	</cftry>
-	
+
 	<cfif len( out.error )>
 		<cfset out.success = false>
 	</cfif>
-	
+
 	<cfreturn out>
 </cffunction>
 
@@ -1714,7 +1661,7 @@
 <cffunction name="mcInterests" access="public" output="false" returnType="struct">
 	<cfargument name="allInterests" type="array" required="true">
 	<cfargument name="memberInterests" type="array" required="true">
-	
+
 	<cfset var i = 0>
 	<cfset var out = {}>
 	<cfloop array="#arguments.allInterests#" index="i">
