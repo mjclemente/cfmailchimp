@@ -18,7 +18,7 @@
 	<cfelse>
 		<cfset out.response.success = false>
 	</cfif>
-	
+
 	<cfreturn out>
 </cffunction>
 
@@ -30,7 +30,7 @@
 	<cfset var out= this.apiRequest2(
 		apiMethod= "helper/chimp-chatter"
 	)>
-	
+
 	<!--- returns array: message, type, list_id, campaign_id, update_time --->
 	<cfreturn out>
 </cffunction>
@@ -46,7 +46,7 @@
 		apiMethod= "helper/account-details"
 	,	exclude= listToArray( arguments.exclude, ',' )
 	)>
-	
+
 	<!--- returns array: username, user_id, is_trial, timezone, plan_type, plan_low, plan_high, plan_start_date --->
 	<!--- emails_left, pending_monthly, first_payment, last_payment, times_logged_in, last_login, affiliate_link --->
 	<!--- contact[], modules[], orders[], rewards[] --->
@@ -60,7 +60,7 @@
 	hint="Have HTML content auto-converted to a text-only format."
 >
 	<cfargument name="html" type="string" required="true">
-	
+
 	<cfset var out = "">
 	<cfset var content = { html = arguments.html }>
 
@@ -69,7 +69,7 @@
 	,	type="html"
 	,	content= content
 	)>
-	
+
 	<cfreturn out>
 </cffunction>
 
@@ -80,13 +80,13 @@
 >
 	<cfargument name="html" type="string" required="true">
 	<cfargument name="stripStyle" type="boolean" default="true">
-	
+
 	<cfset var out= this.apiRequest2(
 		apiMethod= "helper/inline-css"
 	,	html= arguments.html
 	,	strip_css= arguments.stripStyle
 	)>
-	
+
 	<cfreturn out>
 </cffunction>
 
@@ -98,7 +98,7 @@
 	<cfargument name="email" type="string" required="true">
 	<cfargument name="emailType" type="string" default="email" hint="email, euid or leid">
 	<cfargument name="listID" type="string" default="">
-	
+
 	<cfset var out = "">
 	<cfset var e = {
 		"#arguments.emailType#" = arguments.email
@@ -106,13 +106,13 @@
 	<cfset var o = {
 		"list_id" = arguments.listID
 	}>
-	
+
 	<cfset out= this.apiRequest2(
 		apiMethod= "helper/campaigns-for-email"
 	,	email= e
 	,	options= o
 	)>
-	
+
 	<cfreturn out>
 </cffunction>
 
@@ -123,17 +123,17 @@
 >
 	<cfargument name="email" type="string" required="true">
 	<cfargument name="emailType" type="string" default="email" hint="email, euid or leid">
-	
+
 	<cfset var out = "">
 	<cfset var e = {
 		"#arguments.emailType#" = arguments.email
 	}>
-	
+
 	<cfset out= this.apiRequest2(
 		apiMethod= "helper/lists-for-email"
 	,	email= e
 	)>
-	
+
 	<cfreturn out>
 </cffunction>
 
@@ -145,7 +145,7 @@
 	<cfargument name="query" type="string" required="true">
 	<cfargument name="offset" type="numeric" default="0">
 	<cfargument name="highlight" type="string" default="b">
-	
+
 	<cfset var out= this.apiRequest2(
 		apiMethod= "helper/search-campaigns"
 	,	query= arguments.query
@@ -153,7 +153,7 @@
 	,	snip_start= "<#arguments.highlight#>"
 	,	snip_end= "</#arguments.highlight#>"
 	)>
-	
+
 	<cfreturn out>
 </cffunction>
 <cfset this.searchCampaigns = this.campaignSearch>
@@ -166,14 +166,14 @@
 	<cfargument name="query" type="string" required="true">
 	<cfargument name="listID" type="string" default="">
 	<cfargument name="offset" type="numeric" default="0">
-	
+
 	<cfset var out= this.apiRequest2(
 		apiMethod= "helper/search-members"
 	,	query= arguments.query
 	,	offset= arguments.offset
 	,	id= arguments.listID
 	)>
-	
+
 	<cfreturn out>
 </cffunction>
 <cfset this.searchMembers = this.memberSearch>
@@ -186,7 +186,7 @@
 	<cfset var out= this.apiRequest2(
 		apiMethod= "helper/verified-domains"
 	)>
-	
+
 	<cfreturn out>
 </cffunction>
 
@@ -203,13 +203,13 @@
 >
 	<cfargument name="name" type="string" required="true">
 	<cfargument name="type" type="string" required="true" hint="campaign, autoresponder, or template">
-	
+
 	<cfset var out= this.apiRequest2(
 		apiMethod= "folders/add"
 	,	name= arguments.name
 	,	type= arguments.type
 	)>
-	
+
 	<!--- returns folder_id --->
 	<cfreturn out>
 </cffunction>
@@ -222,13 +222,13 @@
 >
 	<cfargument name="folderID" type="string" required="true">
 	<cfargument name="type" type="string" required="true" hint="campaign, autoresponder, or template">
-	
+
 	<cfset var out= this.apiRequest2(
 		apiMethod= "folders/del"
 	,	fid= arguments.folderID
 	,	type= arguments.type
 	)>
-	
+
 	<!--- returns boolean --->
 	<cfreturn out>
 </cffunction>
@@ -241,14 +241,14 @@
 	<cfargument name="folderID" type="string" required="true">
 	<cfargument name="name" type="string" required="true">
 	<cfargument name="type" type="string" required="true" hint="campaign, autoresponder, or template">
-	
+
 	<cfset var out= this.apiRequest2(
 		apiMethod= "folders/update"
 	,	fid= arguments.folderID
 	,	name= arguments.name
 	,	type= arguments.type
 	)>
-	
+
 	<!--- returns folder_id --->
 	<cfreturn out>
 </cffunction>
@@ -259,12 +259,12 @@
 	hint="List all the folders for a user account."
 >
 	<cfargument name="type" type="string" required="true" hint="campaign, autoresponder, or template">
-	
+
 	<cfset var out= this.apiRequest2(
 		apiMethod= "folders/list"
 	,	type= arguments.type
 	)>
-	
+
 	<!--- returns array: folder_id, name, date_created, type --->
 	<cfreturn out>
 </cffunction>
@@ -296,7 +296,7 @@
 	<cfargument name="start" type="numeric" default="0">
 	<cfargument name="limit" type="numeric" default="100">
 	<cfargument name="since" type="string" default="">
-	
+
 	<cfset var out= this.apiRequest2(
 		apiMethod= "lists/abuse-reports"
 	,	id= arguments.list
@@ -304,7 +304,7 @@
 	,	limit= arguments.limit
 	,	since= this.mcDateFormat( arguments.since )
 	)>
-	
+
 	<!--- returns array: date, email, campaign_id, type --->
 	<cfreturn out>
 </cffunction>
@@ -331,11 +331,11 @@
 	<cfargument name="updateExisting" type="boolean" default="false">
 	<cfargument name="replaceGroups" type="boolean" default="false">
 	<cfargument name="sendWelcome" type="boolean" default="false">
-	
+
 	<cfset var out = "">
 	<cfset var gid = "">
 	<cfset var args = {}>
-	
+
 	<cfif len( arguments.firstname )>
 		<cfset arguments.mergeVars[ "FNAME" ] = arguments.firstname>
 	</cfif>
@@ -345,14 +345,14 @@
 	<cfif isSimpleValue( arguments.groups ) AND len( arguments.groups )>
 		<cfset arguments.mergeVars[ "GROUPINGS" ] = []>
 		<cfloop list="#arguments.groups#" index="gid" delimiters=";">
-			<cfif isNumeric( listGetAt( gid, 1, ":" ) )> 
+			<cfif isNumeric( listGetAt( gid, 1, ":" ) )>
 				<cfset arrayAppend( arguments.mergeVars[ "GROUPINGS" ], {
-					"id" = listGetAt( gid, 1, ":" ) 
+					"id" = listGetAt( gid, 1, ":" )
 				,	"groups" = replaceNoCase( listGetAt( gid, 2, ":" ), "null", "" )
 				} )>
 			<cfelse>
 				<cfset arrayAppend( arguments.mergeVars[ "GROUPINGS" ], {
-					"name" = listGetAt( gid, 1, ":" ) 
+					"name" = listGetAt( gid, 1, ":" )
 				,	"groups" = replaceNoCase( listGetAt( gid, 2, ":" ) , "null", "" )
 				} )>
 			</cfif>
@@ -367,9 +367,9 @@
 	<cfif isDate( arguments.created )>
 		<cfset arguments.mergeVars[ "OPTIN_TIME" ] = this.mcDateFormat( arguments.created )>
 	</cfif>
-	
-	<cfset this.flattenObject( args, "merge_vars", arguments.mergeVars )> 
-	
+
+	<cfset this.flattenObject( args, "merge_vars", arguments.mergeVars )>
+
 	<cfset out= this.apiRequest2(
 		apiMethod= "listSubscribe"
 	,	id= arguments.list
@@ -382,7 +382,7 @@
 	,	argumentCollection= args
 	)>
 	<!--- merge_vars= arguments.mergeVars --->
-	
+
 	<!--- returns boolean --->
 	<cfreturn out>
 </cffunction>
@@ -398,11 +398,11 @@
 	<cfargument name="sendConfirm" type="boolean" default="false">
 	<cfargument name="updateExisting" type="boolean" default="false">
 	<cfargument name="replaceGroups" type="boolean" default="false">
-	
+
 	<cfset var out = "">
 	<cfset var email = "">
 	<cfset var b = 0>
-	
+
 	<cfif isSimpleValue( arguments.batch )>
 		<cfset b = []>
 		<cfloop index="email" list="#arguments.batch#" delimiters=";">
@@ -410,7 +410,7 @@
 		</cfloop>
 		<cfset arguments.batch = b>
 	</cfif>
-	
+
 	<cfset out= this.apiRequest2(
 		apiMethod= "lists/batch-subscribe"
 	,	id= arguments.list
@@ -419,7 +419,7 @@
 	,	update_existing= arguments.updateExisting
 	,	replace_interests= arguments.replaceGroups
 	)>
-	
+
 	<cfreturn out>
 </cffunction>
 
@@ -435,18 +435,18 @@
 	<cfargument name="ip" type="string" default="">
 	<cfargument name="created" type="string" default="">
 	<cfargument name="mergeVars" type="struct" default="#{}#">
-	
+
 	<cfset var item = "">
 	<cfset var gid = "">
 	<cfset var m = arguments.mergeVars>
-	
+
 	<cfset m.email = {
 		"#arguments.emailType#" = arguments.email
 	}>
 	<cfif len( arguments.msgType )>
 		<cfset m.email_type = arguments.msgType>
 	</cfif>
-	
+
 	<cfif len( arguments.firstname )>
 		<cfset m.fname = arguments.firstname>
 	</cfif>
@@ -456,14 +456,14 @@
 	<cfif isSimpleValue( arguments.groups ) AND len( arguments.groups )>
 		<cfset m.groupings = []>
 		<cfloop list="#arguments.groups#" index="gid" delimiters=";">
-			<cfif isNumeric( listGetAt( gid, 1, ":" ) )> 
+			<cfif isNumeric( listGetAt( gid, 1, ":" ) )>
 				<cfset arrayAppend( m.groupings, {
-					id = listGetAt( gid, 1, ":" ) 
+					id = listGetAt( gid, 1, ":" )
 				,	groups = listToArray( replaceNoCase( listGetAt( gid, 2, ":" ), "null", "" ), "," )
 				} )>
 			<cfelse>
 				<cfset arrayAppend( m.groupings, {
-					name = listGetAt( gid, 1, ":" ) 
+					name = listGetAt( gid, 1, ":" )
 				,	groups = listToArray( replaceNoCase( listGetAt( gid, 2, ":" ) , "null", "" ), "," )
 				} )>
 			</cfif>
@@ -477,9 +477,9 @@
 	<cfif isDate( arguments.created )>
 		<cfset m.optin_time = this.mcDateFormat( arguments.created )>
 	</cfif>
-	
+
 	<cfset arrayAppend( arguments.batch, m )>
-	
+
 	<cfreturn arguments.batch>
 </cffunction>
 
@@ -504,7 +504,7 @@
 <cffunction name="listSegments" access="public" output="false">
 	<cfargument name="list" type="string" required="true">
 	<cfargument name="type" type="string" required="true"><!--- static or saved --->
-	
+
 	<cfset var out = "">
 
 	<cfset out= this.apiRequest2(
@@ -512,7 +512,7 @@
 	,	id= arguments.list
 	,	type= arguments.type
 	)>
-	
+
 	<cfreturn out>
 </cffunction>
 
@@ -537,7 +537,7 @@
 	<cfargument name="created" type="string" default="">
 	<cfargument name="mergeVars" type="struct" default="#{}#">
 	<cfargument name="replaceGroups" type="boolean" default="false">
-	
+
 	<cfset var out = "">
 	<cfset var gid = "">
 	<cfset var m = {}>
@@ -554,14 +554,14 @@
 	<cfif isSimpleValue( arguments.groups ) AND len( arguments.groups )>
 		<cfset m.groupings = []>
 		<cfloop list="#arguments.groups#" index="gid" delimiters=";">
-			<cfif isNumeric( listGetAt( gid, 1, ":" ) )> 
+			<cfif isNumeric( listGetAt( gid, 1, ":" ) )>
 				<cfset arrayAppend( m.groupings, {
-					id = listGetAt( gid, 1, ":" ) 
+					id = listGetAt( gid, 1, ":" )
 				,	groups = listToArray( replaceNoCase( listGetAt( gid, 2, ":" ), "null", "" ), "," )
 				} )>
 			<cfelse>
 				<cfset arrayAppend( m.groupings, {
-					name = listGetAt( gid, 1, ":" ) 
+					name = listGetAt( gid, 1, ":" )
 				,	groups = listToArray( replaceNoCase( listGetAt( gid, 2, ":" ) , "null", "" ), "," )
 				} )>
 			</cfif>
@@ -576,7 +576,7 @@
 	<cfif isDate( arguments.created )>
 		<cfset m.optin_time = this.mcDateFormat( arguments.created )>
 	</cfif>
-	
+
 	<cfset out= this.apiRequest2(
 		apiMethod= "lists/update-member"
 	,	id= arguments.list
@@ -585,7 +585,7 @@
 	,	replace_interests= arguments.replaceGroups
 	,	merge_vars= m
 	)>
-	
+
 	<!--- returns boolean --->
 	<cfreturn out>
 </cffunction>
@@ -618,14 +618,14 @@
 	<cfargument name="start" type="numeric" default="0">
 	<cfargument name="limit" type="numeric" default="25">
 	<cfargument name="sort" type="string" default="create_time DESC" hint="create_time, send_time, title, subject, ASC or DESC">
-	
+
 	<cfset var out = "">
-	
+
 	<cfset arguments.filters = {
 		"exact" = arguments.exact
 	,	"uses_segments" = arguments.usesSegments
 	}>
-	
+
 	<cfif structKeyExists( arguments, "campaign" )>
 		<cfset arguments.filters[ "campaign_id" ] = arguments.campaign>
 	</cfif>
@@ -662,7 +662,7 @@
 	<cfif structKeyExists( arguments, "sendEnd" ) AND isDate( arguments.sendEnd )>
 		<cfset arguments.filters[ "sendtime_end" ] = this.mcDateFormat( arguments.sendEnd )>
 	</cfif>
-	
+
 	<cfset out= this.apiRequest2(
 		apiMethod= "campaigns/list"
 	,	start= arguments.start
@@ -671,7 +671,7 @@
 	,	sort_field= listFirst( arguments.sort, ' ' )
 	,	sort_dir= listLast( arguments.sort, ' ' )
 	)>
-	
+
 	<!--- returns array: id, web_id, list_id, folder_id, title, type, create_time, send_time, emails_sent, status, from_name, from_email --->
 	<!--- subject, to_email, archive_url, inline_css, analytics, analytics_tag, authenticate, ecomm360, auto_tweet, timewarp, track_clicks_text --->
 	<!--- track_clicks_html, track_options, segment_test, segment_opts --->
@@ -705,7 +705,7 @@
 	<cfargument name="text" type="string" default="">
 	<cfargument name="segments" type="struct" default="#{}#">
 	<cfargument name="options" type="struct" default="#{}#">
-	
+
 	<cfset var out = "">
 	<cfset var args = {
 		type = arguments.type
@@ -735,7 +735,7 @@
 	,	segment_opts = arguments.segments
 	,	type_opts = arguments.options
 	}>
-	
+
 	<cfif isSimpleValue( arguments.analytics )>
 		<cfset args.options[ "analytics" ] = {
 			"google" = arguments.analytics
@@ -764,12 +764,12 @@
 	<cfargument name="view" type="string" default="archive" hint="archive, preview or raw">
 	<cfargument name="email" type="string" required="true">
 	<cfargument name="emailType" type="string" default="email" hint="email, euid or leid">
-	
+
 	<cfset var out = "">
 	<cfset var options = {
 		"view" = arguments.view
 	}>
-	
+
 	<cfif len( arguments.email )>
 		<cfset options["email"] = {
 			"#arguments.emailType#" = arguments.email
@@ -781,7 +781,7 @@
 	,	cid= arguments.campaign
 	,	options= options
 	)>
-	
+
 	<!--- returns struct: html & text --->
 	<cfreturn out>
 </cffunction>
@@ -795,7 +795,7 @@
 	<cfargument name="status" type="string" required="true"><!--- sent, hard, soft --->
 	<cfargument name="start" type="numeric" default="0">
 	<cfargument name="limit" type="numeric" default="100">
-	
+
 	<cfset var out = "">
 	<cfset var o = {
 		"status"= arguments.status
@@ -808,7 +808,7 @@
 	,	cid= arguments.campaign
 	,	opts= o
 	)>
-	
+
 	<!--- returns array: total, data: email, status, absplit_group, tz_group --->
 	<cfreturn out>
 </cffunction>
@@ -822,7 +822,7 @@
 	<cfargument name="start" type="numeric" default="0">
 	<cfargument name="limit" type="numeric" default="100">
 	<cfargument name="since" type="string" default="">
-	
+
 	<cfset var out = "">
 	<cfset var o = {
 		"start"= arguments.start
@@ -835,7 +835,7 @@
 	,	cid= arguments.campaign
 	,	opts= o
 	)>
-	
+
 	<!--- returns array: date, email, type --->
 	<cfreturn out>
 </cffunction>
@@ -861,7 +861,7 @@
 	<cfargument name="tax" type="numeric" default="0">
 	<cfargument name="date" type="date" default="#now()#">
 	<cfargument name="items" type="array" default="#[]#">
-	
+
 	<cfset var out = "">
 	<cfset var order = {
 		"id" = arguments.orderID
@@ -872,7 +872,7 @@
 	,	"order_date" = this.mcDateFormat( arguments.date )
 	,	"items" = arguments.items
 	}>
-	
+
 	<cfif len( arguments.storeName )>
 		<cfset order[ "store_name" ] = arguments.storeName>
 	</cfif>
@@ -912,7 +912,7 @@
 		<cfset arrayAppend( order.items, item )>
 	</cfloop>
 	--->
-	
+
 	<cfset out= this.apiRequest2(
 		apiMethod= "ecomm/order-add"
 	,	order= order
@@ -936,7 +936,7 @@
 >
 	<cfargument name="storeID" type="string" required="true">
 	<cfargument name="orderID" type="string" required="true">
-	
+
 	<cfset var out = "">
 
 	<cfset out= this.apiRequest2(
@@ -951,7 +951,7 @@
 		<cfset out.response.success = false>
 		<cfset out.success = false>
 	</cfif>
-	
+
 	<!--- returns true or throws an error --->
 	<cfreturn out>
 </cffunction>
@@ -965,7 +965,7 @@
 	<cfargument name="start" type="numeric" default="0">
 	<cfargument name="limit" type="numeric" default="100">
 	<cfargument name="since" type="string" default="">
-	
+
 	<cfset var out = "">
 
 	<cfset out= this.apiRequest2(
@@ -975,7 +975,7 @@
 	,	limit= arguments.limit
 	,	since= arguments.since
 	)>
-	
+
 	<!--- returns true or throws an error --->
 	<cfreturn out>
 </cffunction>
@@ -991,12 +991,12 @@
 	<cfargument name="out" type="struct" required="true">
 	<cfargument name="prefix" type="string" default="">
 	<cfargument name="data" type="any">
-	
+
 	<cfset var item = "">
 	<cfset var x = 0>
 	<cfset var dataKeys = 0>
 	<cfset var newKey = "">
-	
+
 	<cfif isSimpleValue( arguments.data ) AND len( arguments.data )>
 		<cfset arguments.out[ arguments.prefix ] = arguments.data>
 	<cfelseif isArray( arguments.data )>
@@ -1032,7 +1032,7 @@
 			</cfif>
 		</cfloop>
 	</cfif>
-	
+
 	<cfreturn arguments.out>
 </cffunction>
 
@@ -1041,7 +1041,7 @@
 	<cfargument name="apiMethod" type="string" required="true">
 	<cfargument name="verb" type="string" default="POST">
 	<cfargument name="output" type="string" default="json">
-	
+
 	<cfset var http = {}>
 	<cfset var dataKeys = 0>
 	<cfset var item = "">
@@ -1082,16 +1082,16 @@
 	<cfelseif NOT structIsEmpty( out.args )>
 		<cfset out.body = serializeJSON( out.args, false, false )>
 	</cfif>
-	
+
 	<cfset this.debugLog( "APIv2: #uCase( out.verb )#: #out.requestUrl#" )>
 	<cfif structKeyExists( out, "body" )>
 		<cfset this.debugLog( out.body )>
 	</cfif>
 
-	<cfif request.debug AND request.dump>
+	<cfif this.debug AND this.dump>
 		<cfset this.debugLog( out )>
 	</cfif>
-	
+
 	<cftimer type="debug" label="mailchimp v2 request">
 		<cfhttp result="http" method="#out.verb#" url="#out.requestUrl#" charset="UTF-8" timeOut="#this.httpTimeOut#" throwOnError="false">
 			<cfif out.verb IS "POST" OR out.verb IS "PUT" OR out.verb IS "PATCH">
@@ -1111,13 +1111,13 @@
 	</cftimer>
 
 	<!--- <cfset this.debugLog( http )> --->
-	
+
 	<cfset out.response = toString( http.fileContent )>
-	
-	<cfif request.debug AND request.dump>
+
+	<cfif this.debug AND this.dump>
 		<cfset this.debugLog( out.response )>
 	</cfif>
-	
+
 	<!--- RESPONSE CODE ERRORS --->
 	<cfif NOT structKeyExists( http, "responseHeader" ) OR NOT structKeyExists( http.responseHeader, "Status_Code" ) OR http.responseHeader.Status_Code IS "">
 		<cfset out.statusCode = 500>
@@ -1125,7 +1125,7 @@
 		<cfset out.statusCode = http.responseHeader.Status_Code>
 	</cfif>
 	<cfset this.debugLog( out.statusCode )>
-	
+
 	<cfif left( out.statusCode, 1 ) IS 4 OR left( out.statusCode, 1 ) IS 5>
 		<cfset out.success = false>
 		<cfset out.error = "status code error: #out.statusCode#">
@@ -1134,13 +1134,13 @@
 	<cfelseif left( out.statusCode, 1 ) IS 2>
 		<cfset out.success = true>
 	</cfif>
-	
+
 	<!--- is response an exception code? --->
 	<cfif len( out.response ) LTE 6 AND structKeyExists( variables.exceptions, out.response )>
 		<cfset out.success = false>
 		<cfset out.error = variables.exceptions[ out.response ]>
 	</cfif>
-	
+
 	<!--- parse response --->
 	<cfif out.success AND arguments.output IS "json">
 		<cftry>
@@ -1154,11 +1154,11 @@
 			</cfcatch>
 		</cftry>
 	</cfif>
-	
+
 	<cfif len( out.error )>
 		<cfset out.success = false>
 	</cfif>
-	
+
 	<cfreturn out>
 </cffunction>
 

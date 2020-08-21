@@ -1,6 +1,6 @@
 <cfcomponent  extends="mailChimp2" displayname="MailChimp" hint="I use the Mail Chimp API" output="false">
 
-  <cfparam name="request.debug" default="false">
+  <cfparam name="this.debug" default="false">
 
 <cffunction name="init" access="public" output="false">
 	<cfargument name="apiKey" type="string" required="true">
@@ -1493,7 +1493,7 @@
 		<cfset this.debugLog( out.body )>
 	</cfif>
 
-	<cfif request.debug AND request.dump>
+	<cfif this.debug AND this.dump>
 		<cfset this.debugLog( out )>
 	</cfif>
 
@@ -1513,7 +1513,7 @@
 
 	<cfset out.response = toString( http.fileContent )>
 
-	<cfif request.debug AND request.dump>
+	<cfif this.debug AND this.dump>
 		<cfset this.debugLog( out.response )>
 	</cfif>
 
@@ -1597,7 +1597,7 @@
 		<cfset this.debugLog( out.body )>
 	</cfif>
 
-	<cfif request.debug AND request.dump>
+	<cfif this.debug AND this.dump>
 		<cfset this.debugLog( out )>
 	</cfif>
 
@@ -1630,7 +1630,7 @@
 	<cfset out.body = serializeJSON( { "operations"= out.batch }, false, false )>
 
 	<cfset this.debugLog( "APIv3: BATCH POST: #out.requestUrl#" )>
-	<cfif request.debug AND request.dump>
+	<cfif this.debug AND this.dump>
 		<cfset this.debugLog( out )>
 	</cfif>
 
@@ -1646,7 +1646,7 @@
 
 	<cfset out.response = toString( http.fileContent )>
 
-	<cfif request.debug>
+	<cfif this.debug>
 		<cfset this.debugLog( out.response )>
 	</cfif>
 
