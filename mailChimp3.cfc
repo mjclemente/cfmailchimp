@@ -74,6 +74,44 @@
 	<cfreturn out>
 </cffunction>
 
+<!--- https://mailchimp.com/developer/api/marketing/lists/get-lists-info/--->
+<cffunction name="lists" access="public" output="false"
+	hint="Get all the information for a particular member of a list">
+	<cfargument name="fields" type="string" required="false">
+	<cfargument name="exclude_fields" type="string" required="false">
+	<cfargument name="count" type="numeric" default="10">
+	<cfargument name="offset" type="numeric" default="0">
+	<cfargument name="email" type="string" required="false" hint="Restrict results to lists that include a specific subscriber's email address. ">
+	<cfargument name="before_date_created" type="string" required="false" hint="">
+	<cfargument name="since_date_created" type="string" required="false" hint="">
+	<cfargument name="before_campaign_last_sent" type="string" required="false" hint="">
+	<cfargument name="since_campaign_last_sent" type="string" required="false" hint="">
+	<cfargument name="sort_field" type="string" default="date_created" hint="date_created">
+	<cfargument name="sort_dir" type="string" default="DESC" hint="ASC, DESC">
+
+	<cfset var out = "">
+
+	<cfif structKeyExists( arguments, "before_date_created" ) AND isDate( arguments.before_date_created )>
+		<cfset arguments[ "before_date_created" ] = mcDateFormat( arguments.before_date_created )>
+	</cfif>
+	<cfif structKeyExists( arguments, "since_date_created" ) AND isDate( arguments.since_date_created )>
+		<cfset arguments[ "since_date_created" ] = mcDateFormat( arguments.since_date_created )>
+	</cfif>
+	<cfif structKeyExists( arguments, "before_campaign_last_sent" ) AND isDate( arguments.before_campaign_last_sent )>
+		<cfset arguments[ "before_campaign_last_sent" ] = mcDateFormat( arguments.before_campaign_last_sent )>
+	</cfif>
+	<cfif structKeyExists( arguments, "since_campaign_last_sent" ) AND isDate( arguments.since_campaign_last_sent )>
+		<cfset arguments[ "since_campaign_last_sent" ] = mcDateFormat( arguments.since_campaign_last_sent )>
+	</cfif>
+
+	<cfset out = this.apiRequest3(
+		api= "GET /lists"
+	,	argumentCollection= arguments
+	)>
+
+	<cfreturn out>
+</cffunction>
+
 
 <!--- ---------------------------------------------------------------------------------------------------------- --->
 <!--- MEMBER METHODS --->
