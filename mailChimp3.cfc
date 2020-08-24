@@ -76,7 +76,7 @@
 
 <!--- https://mailchimp.com/developer/api/marketing/lists/get-lists-info/--->
 <cffunction name="lists" access="public" output="false"
-	hint="Get all the information for a particular member of a list">
+	hint="Get a list of all lists">
 	<cfargument name="fields" type="string" required="false">
 	<cfargument name="exclude_fields" type="string" required="false">
 	<cfargument name="count" type="numeric" default="10">
@@ -106,6 +106,23 @@
 
 	<cfset out = this.apiRequest3(
 		api= "GET /lists"
+	,	argumentCollection= arguments
+	)>
+
+	<cfreturn out>
+</cffunction>
+
+<!--- https://mailchimp.com/developer/api/marketing/lists/get-list-info/--->
+<cffunction name="getList" access="public" output="false"
+	hint="Get all the information for a particular list">
+	<cfargument name="list_id" type="string" required="true">
+	<cfargument name="fields" type="string" required="false">
+	<cfargument name="exclude_fields" type="string" required="false">
+
+	<cfset var out = "">
+
+	<cfset out = this.apiRequest3(
+		api= "GET /lists/{list_id}"
 	,	argumentCollection= arguments
 	)>
 
